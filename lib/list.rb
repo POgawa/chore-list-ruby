@@ -2,6 +2,8 @@ class List
   def initialize(name)
     @list_name = name
     @tasks = []
+    @priority = []
+    @due_dates = []
   end
 
   def list_name

@@ -27,15 +27,16 @@ def main_menu
 end
 
 def list_menu(current_list)
-  puts "Press 'a' to add a task, 'd' to display tasks or 'x' to go back to main menu"
+  puts "Press 'a' to add a task, 'd' to delete a task, 's' to show tasks or 'x' to go back to main menu"
   main_choice = gets.chomp
   if main_choice == 'a'
     new_task(current_list)
-  elsif main_choice == 'd'
+  elsif main_choice == 's'
     display_tasks(current_list)
+  elsif main_choice == 'd'
+    delete_tasks(current_list)
   elsif main_choice == 'x'
     main_menu
-
   else
     puts "Sorry, that wasn't a valid option."
     main_menu
@@ -55,12 +56,8 @@ end
 def new_task(current_list)
   puts "Add a task to this list"
   new_task = gets.chomp
-  puts current_list
   current_list.add_task(new_task)
   list_menu(current_list)
-  # new_task = gets.chomp
-  # current_list.add_task(new_task)
-  # list_menu(current_list)
 end
 
 def show_lists
@@ -70,8 +67,8 @@ def show_lists
 end
 
 def display_tasks(current_list)
-  current_list.show_tasks.each do |cur_task|
-    puts cur_task
+  current_list.show_tasks.each_with_index do |cur_task, index|
+    print index.to_s + ': ' + cur_task + ', '
   end
   list_menu(current_list)
 end
@@ -81,9 +78,17 @@ def edit_lists
   puts "Type in a list to edit"
   chosen_list = gets.chomp.to_i
   list_position = @lists.index(chosen_list)
-  # list_position = @lists.at(current_list)
-  print list_position
   list_menu(@lists[list_position.to_i])
+end
+
+def delete_tasks (current_list)
+  current_list.show_tasks.each_with_index do |cur_task, index|
+    print index.to_s + ': ' + cur_task + ', '
+  end
+  puts "type the task you want to delete"
+  deleted_task = gets.chomp.to_i
+  current_list.show_tasks.delete_at(deleted_task)
+  list_menu(current_list)
 end
 
 main_menu
