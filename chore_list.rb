@@ -2,7 +2,6 @@ require './lib/task'
 require './lib/list'
 
 @lists = []
-@tasks = []
 
 def main_menu
   if @lists.length >= 1
@@ -48,7 +47,6 @@ def new_list
   list_name = gets.chomp
   new_list = List.new(list_name)
   @lists << new_list
-  # puts new_list.tasks
   list_menu(new_list)
 end
 
